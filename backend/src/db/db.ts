@@ -1,13 +1,20 @@
-import pg, { Pool } from 'pg'
-import dotenv from 'dotenv'
-dotenv.config()
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/postgres',
-})
+    import { Pool } from "pg";
 
-const query = (text : string , params? : any[])=>{
-    return pool.query(text, params)
+export const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
 
+export async function connectDatabase() {
+  try {
+    const client = await pool.connect();
+
+    console.log(" PostgreSQL Connected");
+
+    client.release();
+  } catch (error) {
+    console.error("Database Connection Failed");
+    console.error(error);
+
+    process.exit(1);
+  }
 }
-
-export default pool;
