@@ -18,6 +18,26 @@ export class ProjectRepository {
         const result = await pool.query(query, values);
         return result.rows[0] ?? null;
     }
+
+    async findProjectByUser(
+        projectId: string,
+        userId: string
+    ) {
+        const query = `
+    SELECT id
+    FROM projects
+    WHERE id = $1
+    AND user_id = $2;
+  `;
+
+        const values = [projectId, userId];
+
+        const result = await pool.query(query, values);
+
+        return result.rows[0] ?? null;
+    }
 }
+
+
 
 export const projectRepository = new ProjectRepository();

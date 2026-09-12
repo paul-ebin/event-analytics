@@ -4,6 +4,7 @@ import helmet from 'helmet'
 import authRoutes from '../src/routes/auth.routes'
 import { errorHandler } from './middlewares/error.middleware'
 import projectRouter from '../src/routes/project.routes'
+import apiKeyRouter from "./routes/apiKey.routes";
 import cookieParser from 'cookie-parser'
 
 const app = express()
@@ -13,6 +14,7 @@ app.use(cors())
 app.use(cookieParser());
 app.use('/auth', authRoutes);
 app.use("/projects", projectRouter);
+app.use("/api-keys", apiKeyRouter);
 app.get('/', (req: Request, res: Response) => {
     res.json("Welcome to Event Analytics")
 })  
