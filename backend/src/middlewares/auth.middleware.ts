@@ -37,6 +37,7 @@ export function authMiddleware(
       throw new UnauthorizedError(
         "Invalid access token"
       );
+      
     }
 
     req.userId = decoded.userId;
